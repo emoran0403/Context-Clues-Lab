@@ -43,28 +43,43 @@ var weapons = [
   "Atomic Bomb",
 ];
 
-for (var i = 1; i <= 100; i++) {
-  //this loop goes from 1-100
-  //console.log(`i is ${i}`);
+$(document).ready(function () {
+  function doSuff() {
+    return function () {
+      for (var i = 1; i <= 100; i++) {
+        //this loop goes from 1-100
+        //console.log(`i is ${i}`);
 
-  var newH3 = $("<h3>");
+        var newH3 = $("<h3>");
 
-  newH3
-    .text(`Accusation ${i}`)
-    .addClass("m-auto border border-dark border-3 rounded")
-    .click(function () {
-      alert("alert text here");
-    });
+        newH3
+          .text(`Accusation ${i}`)
+          .addClass("m-auto border border-dark border-3 rounded")
+          .click(function () {
+            //* Accusation i: I accuse FRIEND_NAME, with the WEAPON_NAME in the LOCATION_NAME!
 
-  $("#container").append(newH3);
+            alert(
+              `Accusation ${i}: I accuse ${friends[i % 5]}, with the ${
+                locations[i % 10]
+              } in the ${weapons[1 % 20]}`
+            );
+          });
 
-  /*
-  $("<div>")
-    .append("h3")
-    .addClass("m-auto border border-dark border-3 rounded-pill")
-    .text(`Accusation ${i}`);
-    */
-}
+        $("#container").append(newH3);
+
+        /*
+                $("<div>")
+                  .append("h3")
+                  .addClass("m-auto border border-dark border-3 rounded-pill")
+                  .text(`Accusation ${i}`);
+                  */
+      }
+    };
+  }
+
+  var test = doSuff();
+  test();
+});
 
 //*************************************************Requirements********************************************************** */
 
