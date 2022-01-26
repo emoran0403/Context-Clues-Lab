@@ -44,41 +44,35 @@ var weapons = [
 ];
 
 $(document).ready(function () {
-  function doSuff() {
-    return function () {
-      for (var i = 1; i <= 100; i++) {
-        //this loop goes from 1-100
-        //console.log(`i is ${i}`);
+  //this runs when the document is ready
 
+  //this outter function is necessary to create the closure
+
+  for (var i = 1; i <= 100; i++) {
+    function outerFunc() {
+      function innerFunc() {
+        //this inner function is where the closure is created
         var newH3 = $("<h3>");
 
         newH3
           .text(`Accusation ${i}`)
           .addClass("m-auto border border-dark border-3 rounded")
           .click(function () {
-            //* Accusation i: I accuse FRIEND_NAME, with the WEAPON_NAME in the LOCATION_NAME!
-
             alert(
               `Accusation ${i}: I accuse ${friends[i % 5]}, with the ${
-                locations[i % 10]
-              } in the ${weapons[1 % 20]}`
+                weapons[1 % 20]
+              } in the ${locations[i % 10]}`
             );
           });
 
         $("#container").append(newH3);
-
-        /*
-                $("<div>")
-                  .append("h3")
-                  .addClass("m-auto border border-dark border-3 rounded-pill")
-                  .text(`Accusation ${i}`);
-                  */
       }
-    };
+      return innerFunc();
+    }
   }
 
-  var test = doSuff();
-  test();
+  var getClosure = outerFunc();
+  getClosure();
 });
 
 //*************************************************Requirements********************************************************** */
@@ -98,3 +92,5 @@ $(document).ready(function () {
 //? done - You need an array of 5 friend names
 //? done - You need an array of 10 location names
 //? done - You need an array of 20 weapon/object names (feel free to be silly/absurd)
+
+//this loop goes from 1-100
