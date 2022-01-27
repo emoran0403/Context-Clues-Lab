@@ -44,40 +44,39 @@ var weapons = [
 ];
 
 $(document).ready(function () {
-  function OuterFunc() {
-    function innerFunc() {
-      for (var i = 1; i <= 100; i++) {
-        //this loop goes from 1-100
-
-        var newH3 = $("<h3>");
-
-        newH3
-          .text(`Accusation ${i}`)
-          .addClass("m-auto border border-dark border-3 rounded")
-          .click(function () {
-            alert(
-              `Accusation ${i}: I accuse ${friends[i % 5]}, with the ${
-                weapons[i % 20]
-              } in the ${locations[i % 10]}`
-            );
-          });
-
-        $("#container").append(newH3);
-      }
+  // runs when the document is loaded
+  function getClosure() {
+    for (var i = 1; i <= 100; i++) {
+      // this loop calls giveClosure, and passes i as an argument
+      giveClosure(i);
     }
-    return innerFunc;
+    function giveClosure(i) {
+      // by taking i as a parameter, i will be closed and available to the click function with the correct value for each iteration of the loop
+      var newH3 = $("<h3>");
+
+      newH3
+        .text(`Accusation ${i}`)
+        .addClass("m-auto border border-dark border-3 rounded")
+        .click(function () {
+          alert(
+            `Accusation ${i}: I accuse ${friends[i % 5]}, with the ${
+              weapons[i % 20]
+            } in the ${locations[i % 10]}`
+          );
+        });
+
+      $("#container").append(newH3);
+    }
   }
 
-  var getClosure = OuterFunc();
   getClosure();
 });
 
 //*************************************************Requirements********************************************************** */
-//this function needs to preserve the value of i as the loop runs so that the click will be accurate
 
 //?done - When the page first loads, insert 100 h3 elements onto the page
 
-//*todo - Due to the way scoping works when using var, you will need to use closure to solve this problem
+//?done - Due to the way scoping works when using var, you will need to use closure to solve this problem
 //* You need to create a function that returns a function that specializes in displaying an alert for a particular loop iteration
 //* That returned function can be set as the click listener for the h3
 
@@ -89,27 +88,3 @@ $(document).ready(function () {
 //? done - You need an array of 20 weapon/object names (feel free to be silly/absurd)
 //? done - When an accusation is clicked, an alert will appear that shows the full text of the accusation:
 //* Accusation i: I accuse FRIEND_NAME, with the WEAPON_NAME in the LOCATION_NAME!
-
-/*
-function makeFunc() {
-  let name = 'Covalence';
-
-  function displayName() { //-- the inner function needs to know about the value of name, since name is referenced in the body of the function
-      alert(name);
-  }
-
-  return displayName;
-}
-
-let myFunc = makeFunc();
-
-myFunc();
-*/
-/********************************************************************************************************************************** */
-
-// function myOutsideFunc() {
-//   return alertPlease;
-// }
-
-// var workNow = alertPlease();
-// workNow();
