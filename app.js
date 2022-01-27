@@ -57,7 +57,7 @@ $(document).ready(function () {
           .click(function () {
             alert(
               `Accusation ${i}: I accuse ${friends[i % 5]}, with the ${
-                weapons[1 % 20]
+                weapons[i % 20]
               } in the ${locations[i % 10]}`
             );
           });
